@@ -20,9 +20,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _view = (MTKView*)self.view;
+//    _view = (MTKView*)self.view;
+    _view = [[MTKView alloc] initWithFrame:self.view.frame];
     _view.device = MTLCreateSystemDefaultDevice();
     _view.delegate = self;
+    self.view.backgroundColor = [UIColor blueColor];
+    [self.view addSubview:_view];
+    _view.backgroundColor  = [UIColor redColor];
     _renderer = [[MTLRenderer alloc] initWithMTKView:_view];
     [_renderer mtkView:_view resize:_view.drawableSize];
     // Do any additional setup after loading the view.

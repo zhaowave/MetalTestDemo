@@ -19,6 +19,7 @@
 		954286732869FBB600221E09 /* MetalRenderDemoUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 954286722869FBB600221E09 /* MetalRenderDemoUITestsLaunchTests.m */; };
 		954286822869FEA100221E09 /* MTLRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 954286812869FEA100221E09 /* MTLRenderer.m */; };
 		9562C052286B4D05004A6D7C /* triangle.metal in Sources */ = {isa = PBXBuildFile; fileRef = 9562C051286B4D05004A6D7C /* triangle.metal */; };
+		9562C056286B5BDD004A6D7C /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9562C055286B5BDD004A6D7C /* MetalKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		954286812869FEA100221E09 /* MTLRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTLRenderer.m; sourceTree = "<group>"; };
 		9562C051286B4D05004A6D7C /* triangle.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = triangle.metal; sourceTree = "<group>"; };
 		9562C053286B4D35004A6D7C /* SharedTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedTypes.h; sourceTree = "<group>"; };
+		9562C055286B5BDD004A6D7C /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9562C056286B5BDD004A6D7C /* MetalKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +97,7 @@
 				954286652869FBB600221E09 /* MetalRenderDemoTests */,
 				9542866F2869FBB600221E09 /* MetalRenderDemoUITests */,
 				954286482869FBB500221E09 /* Products */,
+				9562C054286B5BDD004A6D7C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,6 +156,14 @@
 				9562C053286B4D35004A6D7C /* SharedTypes.h */,
 			);
 			path = Renderer;
+			sourceTree = "<group>";
+		};
+		9562C054286B5BDD004A6D7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9562C055286B5BDD004A6D7C /* MetalKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
