@@ -17,7 +17,7 @@ struct RasterData
 vertex RasterData vmain(uint vId [[vertex_id]], constant VertexData* vertices [[buffer(0)]])
 {
     RasterData out;
-    out.pos = {0.};
+    out.pos = vector_float4(0.,0.,0.,1.);
     out.pos.xy = vertices[vId].pos;
     
     out.color = vertices[vId].color;
@@ -26,7 +26,7 @@ vertex RasterData vmain(uint vId [[vertex_id]], constant VertexData* vertices [[
 
 fragment float4 fmain(RasterData in [[stage_in]])
 {
-    return {1.,0.,0.,1.};//in.color;
+    return in.color;
 }
 
 

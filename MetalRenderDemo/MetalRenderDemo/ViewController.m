@@ -18,18 +18,41 @@
     MTLRenderer* _renderer;
 }
 
+- (void)loadView
+{
+    [self loadMTKView];
+}
+
+- (void)loadMTKView
+{
+    self.view = [[MTKView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+}
+
+- (void)loadRenderView
+{
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    _view = (MTKView*)self.view;
-    _view = [[MTKView alloc] initWithFrame:self.view.frame];
+    
+    [self basicMTKViewRenderer];
+}
+
+- (void)basicRenderViewRenderer
+{
+    
+}
+
+- (void)basicMTKViewRenderer
+{
+    _view = (MTKView*)self.view;
     _view.device = MTLCreateSystemDefaultDevice();
     _view.delegate = self;
     self.view.backgroundColor = [UIColor blueColor];
-    [self.view addSubview:_view];
     _view.backgroundColor  = [UIColor redColor];
     _renderer = [[MTLRenderer alloc] initWithMTKView:_view];
     [_renderer mtkView:_view resize:_view.drawableSize];
-    // Do any additional setup after loading the view.
 }
 
 

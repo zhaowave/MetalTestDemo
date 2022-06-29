@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		953C7DA5286C9C3900DCDA48 /* RenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 953C7DA4286C9C3900DCDA48 /* RenderView.m */; };
 		9542864C2869FBB500221E09 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9542864B2869FBB500221E09 /* AppDelegate.m */; };
 		9542864F2869FBB500221E09 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9542864E2869FBB500221E09 /* SceneDelegate.m */; };
 		954286522869FBB500221E09 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 954286512869FBB500221E09 /* ViewController.m */; };
@@ -40,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		953C7DA3286C9C3900DCDA48 /* RenderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderView.h; sourceTree = "<group>"; };
+		953C7DA4286C9C3900DCDA48 /* RenderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenderView.m; sourceTree = "<group>"; };
 		954286472869FBB500221E09 /* MetalRenderDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalRenderDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9542864A2869FBB500221E09 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9542864B2869FBB500221E09 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -90,6 +93,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		953C7DA2286C9BC700DCDA48 /* RenderView */ = {
+			isa = PBXGroup;
+			children = (
+				953C7DA3286C9C3900DCDA48 /* RenderView.h */,
+				953C7DA4286C9C3900DCDA48 /* RenderView.m */,
+			);
+			path = RenderView;
+			sourceTree = "<group>";
+		};
 		9542863E2869FBB500221E09 = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +128,7 @@
 			children = (
 				9542867F2869FE7500221E09 /* Renderer */,
 				9542864A2869FBB500221E09 /* AppDelegate.h */,
+				953C7DA2286C9BC700DCDA48 /* RenderView */,
 				9542864B2869FBB500221E09 /* AppDelegate.m */,
 				9542864D2869FBB500221E09 /* SceneDelegate.h */,
 				9542864E2869FBB500221E09 /* SceneDelegate.m */,
@@ -300,6 +313,7 @@
 				9542864C2869FBB500221E09 /* AppDelegate.m in Sources */,
 				954286822869FEA100221E09 /* MTLRenderer.m in Sources */,
 				9562C052286B4D05004A6D7C /* triangle.metal in Sources */,
+				953C7DA5286C9C3900DCDA48 /* RenderView.m in Sources */,
 				9542865D2869FBB600221E09 /* main.m in Sources */,
 				9542864F2869FBB500221E09 /* SceneDelegate.m in Sources */,
 			);
