@@ -21,6 +21,7 @@
 		954286822869FEA100221E09 /* MTLRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 954286812869FEA100221E09 /* MTLRenderer.m */; };
 		9562C052286B4D05004A6D7C /* triangle.metal in Sources */ = {isa = PBXBuildFile; fileRef = 9562C051286B4D05004A6D7C /* triangle.metal */; };
 		9562C056286B5BDD004A6D7C /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9562C055286B5BDD004A6D7C /* MetalKit.framework */; };
+		95A65AFA286DF6CF002B3F78 /* MTLLayerRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 95A65AF9286DF6CF002B3F78 /* MTLLayerRenderer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,8 @@
 		9562C051286B4D05004A6D7C /* triangle.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = triangle.metal; sourceTree = "<group>"; };
 		9562C053286B4D35004A6D7C /* SharedTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedTypes.h; sourceTree = "<group>"; };
 		9562C055286B5BDD004A6D7C /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		95A65AF8286DF6CF002B3F78 /* MTLLayerRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTLLayerRenderer.h; sourceTree = "<group>"; };
+		95A65AF9286DF6CF002B3F78 /* MTLLayerRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTLLayerRenderer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +168,8 @@
 			children = (
 				954286802869FEA100221E09 /* MTLRenderer.h */,
 				954286812869FEA100221E09 /* MTLRenderer.m */,
+				95A65AF8286DF6CF002B3F78 /* MTLLayerRenderer.h */,
+				95A65AF9286DF6CF002B3F78 /* MTLLayerRenderer.m */,
 				9562C051286B4D05004A6D7C /* triangle.metal */,
 				9562C053286B4D35004A6D7C /* SharedTypes.h */,
 			);
@@ -315,6 +320,7 @@
 				9562C052286B4D05004A6D7C /* triangle.metal in Sources */,
 				953C7DA5286C9C3900DCDA48 /* RenderView.m in Sources */,
 				9542865D2869FBB600221E09 /* main.m in Sources */,
+				95A65AFA286DF6CF002B3F78 /* MTLLayerRenderer.m in Sources */,
 				9542864F2869FBB500221E09 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

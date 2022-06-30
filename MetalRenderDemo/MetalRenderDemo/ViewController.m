@@ -7,10 +7,14 @@
 
 #import "ViewController.h"
 #import "MTLRenderer.h"
+#import "RenderView/RenderView.h"
 
-@interface ViewController ()<MTKViewDelegate>
+@interface ViewController ()<MTKViewDelegate, RenderViewDelegate>
 
 @end
+
+const BOOL usingMtlLayer = YES;
+#define FullScreenFrame [UIScreen mainScreen].bounds
 
 @implementation ViewController
 {
@@ -20,27 +24,46 @@
 
 - (void)loadView
 {
-    [self loadMTKView];
+    if (usingMtlLayer)
+    {
+        [self loadRenderView];
+    }
+    else
+    {
+        [self loadMTKView];
+    }
 }
 
 - (void)loadMTKView
 {
-    self.view = [[MTKView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.view = [[MTKView alloc] initWithFrame:FullScreenFrame];
 }
 
 - (void)loadRenderView
 {
-    
+    self.view = [[RenderView alloc] initWithFrame:FullScreenFrame];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (usingMtlLayer)
+    {
+        [self basicRenderViewRenderer];
+    }
+    else
+    {
+        [self basicMTKViewRenderer];
+    }
     
-    [self basicMTKViewRenderer];
 }
 
 - (void)basicRenderViewRenderer
 {
+    id<MTLDevice> device = MTLCreateSystemDefaultDevice();
+    RenderView* view = (RenderView*)self.view;
+    view.metalLayer.device = device;
+    view.metalLayer.pixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
+    view.delegate = self;
     
 }
 
@@ -55,7 +78,17 @@
     [_renderer mtkView:_view resize:_view.drawableSize];
 }
 
+- (void)resize:(CGSize)size
+{
+    
+}
+- (void)renderToMTLLayer:(nonnull CAMetalLayer*)layer
+{
+    
+}
 
+
+#pragma mark MTKViewDelegate
 - (void)mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size {
     NSLog(@"mtlView drawableSizeWillChange...");
     [_renderer mtkView:view resize:size];

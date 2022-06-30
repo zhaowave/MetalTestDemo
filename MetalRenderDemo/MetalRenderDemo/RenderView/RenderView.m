@@ -31,15 +31,14 @@
     return [CAMetalLayer class];
 }
 
-
-
 - (void)commonInit
 {
     _metalLayer = (CAMetalLayer*)self.layer;
-    
+    _metalLayer.delegate = self;
     _dsplk = [CADisplayLink displayLinkWithTarget:self selector:@selector(render)];
     _dsplk.preferredFramesPerSecond = 60;
     _dsplk.paused = NO;
+    [_dsplk addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
 }
 
 - (void)resizeDrawable:(CGFloat)factor
@@ -55,15 +54,55 @@
     [_delegate resize:size];
 }
 
+- (void)setPaused:(BOOL)paused
+{
+    _paused = paused;
+    _dsplk.paused = paused;
+}
+
+#pragma mark - Resizing
+
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
     [self resizeDrawable:self.window.screen.nativeScale];
 }
 
+- (void)setBounds:(CGRect)bounds
+{
+    [super setBounds:bounds];
+    [self resizeDrawable:self.window.screen.nativeScale];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self resizeDrawable:self.window.screen.nativeScale];
+}
+
+- (void)setContentScaleFactor:(CGFloat)contentScaleFactor
+{
+    [super setContentScaleFactor:contentScaleFactor];
+    [self resizeDrawable:self.window.screen.nativeScale];
+}
+
 - (void)render
 {
     [_delegate renderToMTLLayer:_metalLayer];
+}
+
+#pragma mark CALayerDelegate
+
+- (void)displayLayer:(CALayer *)layer
+{
+    [self render];
+}
+
+/* If defined, called by the default implementation of -drawInContext: */
+
+- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx
+{
+    [self render];
 }
 
 

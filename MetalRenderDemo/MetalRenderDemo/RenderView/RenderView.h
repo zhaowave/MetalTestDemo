@@ -16,8 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface RenderView : UIView
-
+@interface RenderView : UIView <CALayerDelegate>
+@property(nonatomic, assign, getter=isPaused) BOOL paused;
 @property (nonatomic, nonnull, readonly) CAMetalLayer *metalLayer;
 @property(nonatomic, weak) id<RenderViewDelegate> delegate;
 
