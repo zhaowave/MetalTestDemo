@@ -8,6 +8,7 @@
 #import "ViewController.h"
 #import "MTLRenderer.h"
 #import "RenderView/RenderView.h"
+#import "MTLLayerRenderer.h"
 
 @interface ViewController ()<MTKViewDelegate, RenderViewDelegate>
 
@@ -20,6 +21,7 @@ const BOOL usingMtlLayer = YES;
 {
     MTKView *_view;
     MTLRenderer* _renderer;
+    MTLLayerRenderer* _layerRenderer;
 }
 
 - (void)loadView
@@ -65,6 +67,8 @@ const BOOL usingMtlLayer = YES;
     view.metalLayer.pixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
     view.delegate = self;
     
+    _layerRenderer = [[MTLLayerRenderer alloc] initWithMTLDevice:device andPixelFormat:view.metalLayer.pixelFormat];
+    
 }
 
 - (void)basicMTKViewRenderer
@@ -80,11 +84,17 @@ const BOOL usingMtlLayer = YES;
 
 - (void)resize:(CGSize)size
 {
-    
+    if (_layerRenderer)
+    {
+        [_layerRenderer resize:size];
+    }
 }
 - (void)renderToMTLLayer:(nonnull CAMetalLayer*)layer
 {
-    
+    if (_layerRenderer)
+    {
+        [_layerRenderer renderToMetalLayer:layer];
+    }
 }
 
 
