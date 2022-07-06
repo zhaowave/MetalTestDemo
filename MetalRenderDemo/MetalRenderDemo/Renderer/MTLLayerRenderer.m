@@ -53,6 +53,11 @@
                 {{1.,-1.}, {0.,1.,0.,1.}},
                 {{1, 1  }, {0.,0.,1.,1.}},
             };
+            
+            
+            
+            
+            
             _vertices = [_device newBufferWithBytes:data length:sizeof(data) options:MTLResourceStorageModeShared];
             _vertices.label = @"vertices";
             
@@ -140,12 +145,15 @@
     id<MTLRenderCommandEncoder> encoder = [cb renderCommandEncoderWithDescriptor:_renderPassdesc];
     if (encoder)
     {
+        matrix_float4x4 transform = matrix_identity_float4x4;
+        transform.columns[1].y = 720./1280.;
         [encoder setRenderPipelineState:_state];
         [encoder setVertexBuffer:_vertices offset:0 atIndex:0];
         [encoder setFragmentTexture:_texture atIndex:0];
         
         float scale = 1.;//0.5 + (1.0 + 0.5 * sin(_frameNum * 0.1));;
         [encoder setVertexBytes:&scale length:sizeof(scale) atIndex:1];
+        [encoder setVertexBytes:&transform length:sizeof(transform) atIndex:2];
         
         [encoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:6];
         [encoder endEncoding];
