@@ -12,6 +12,7 @@ struct RasterData
 {
     float4 pos [[position]];
     float4 color;
+    float2 coord;
 };
 
 vertex RasterData vmain(uint vId [[vertex_id]], constant VertexData* vertices [[buffer(0)]])
@@ -37,16 +38,25 @@ vertex RasterData vmain1(uint vId [[vertex_id]],
     RasterData out;
     out.color = vertices[vId].color;
     float2 pos = vertices[vId].pos;
+    out.coord = pos * 0.5 + 0.5;
     pos *= *scale;
     out.pos.xy =  pos;
     out.pos.z = 0.;
     out.pos.w = 1.;
+    
     return out;
 }
 
-fragment float4 fmain1(RasterData in [[stage_in]])
+fragment float4 fmain1(RasterData in [[stage_in]], texture2d<float> texture [[texture(0)]])
 {
-    return in.color;
+    constexpr sampler s(mag_filter::linear, min_filter::linear);
+    const float4 color = texture.sample(s, in.coord);
+    float4 ret = {1.,1.,1.,1.};
+    ret.x = color.r;
+    ret.y = color.g;
+    ret.z = color.b;
+    ret.w = color.a;
+    return ret;
 }
 
 
