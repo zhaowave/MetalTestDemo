@@ -15,5 +15,11 @@ typedef struct
     vector_float4 color;
 }VertexData;
 
+typedef struct
+{
+    vector_float3 pos;
+    vector_float2 texCoord;
+}VertexCube;
+
 
 #endif /* SharedStruct_h */

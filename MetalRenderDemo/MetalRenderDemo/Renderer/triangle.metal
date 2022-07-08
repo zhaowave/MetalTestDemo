@@ -32,18 +32,18 @@ fragment float4 fmain(RasterData in [[stage_in]])
 
 /*=======================================*/
 vertex RasterData vmain1(uint vId [[vertex_id]],
-                         constant VertexData* vertices [[buffer(0)]],
+                         constant VertexCube* vertices [[buffer(0)]],
                          constant float* scale [[buffer(1)]],
                          constant matrix_float4x4* mat [[buffer(2)]])
 {
     RasterData out;
-    out.color = vertices[vId].color;
-    float2 pos = vertices[vId].pos;
-    out.coord = pos * 0.5 + 0.5;
+    out.color = {1.};
+    float3 pos = vertices[vId].pos;
+    out.coord = vertices[vId].texCoord;
     pos *= *scale;
-    out.pos.xy =  pos;
-    out.pos.z = 0.;
+    out.pos.xyz =  pos;
     out.pos.w = 1.;
+
     
     
 //    out.pos.y = out.pos.y * 72./ 128.;
