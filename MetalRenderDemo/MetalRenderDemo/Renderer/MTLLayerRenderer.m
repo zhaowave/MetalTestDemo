@@ -39,7 +39,7 @@
         _renderPassdesc.colorAttachments[0].storeAction = MTLStoreActionStore;
         _renderPassdesc.colorAttachments[0].clearColor = MTLClearColorMake(1., 1., 0., 1.);
         [self loadTexture];
-        _renderPassdesc.depthAttachment.texture = [self createDepthStencilTextureWithWidth:1242 height:2688];
+        _renderPassdesc.depthAttachment.texture = [self createDepthStencilTextureWithWidth:1170 height:2532];
         
         //shader
         {
@@ -50,7 +50,7 @@
             
             
             static const VertexCube data[] = {
-{{-0.5f, -0.5f, -0.5f},  {0.0f, 0.0f}},
+                {{-0.5f, -0.5f, -0.5f},  {0.0f, 0.0f}},
                 {{ 0.5f, -0.5f, -0.5f},  {1.0f, 0.0f}},
                 {{ 0.5f,  0.5f, -0.5f},  {1.0f, 1.0f}},
                 {{0.5f,  0.5f, -0.5f},  {1.0f, 1.0f}},
@@ -201,14 +201,45 @@
     id<MTLRenderCommandEncoder> encoder = [cb renderCommandEncoderWithDescriptor:_renderPassdesc];
     if (encoder)
     {
-        matrix_float4x4 model = matrix4x4_rotation(_frameNum * (M_PI / 180.), 1., 1., 0.);
-
-        matrix_float4x4 view = matrix4x4_translation(0., 0., 3.);
+        
+        /*  右手坐标系
+                                    y
+                                    |
+                                    |
+                                    |_______x   
+                                    /
+                                   /
+                                  /
+                                 z
+         左手坐标系
+                                     y   z
+                                     |  /
+                                     | /
+                                     |/_______x
+         
+         
+         */
+        
+        static const vector_float3 cubePositions[] = {
+            { 0.0f,  0.0f,  0.0f},
+            { 2.0f,  5.0f, -15.0f},
+            {-1.5f, -2.2f, -2.5f},
+            {-3.8f, -2.0f, -12.3f},
+            { 2.4f, -0.4f, -3.5f},
+            {-1.7f,  3.0f, -7.5f},
+            { 1.3f, -2.0f, -2.5f},
+            { 1.5f,  2.0f, -2.5f},
+            { -0.5f,  0.2f, -1.5f},
+            {-1.f,   1.0f, -1.5f}
+            };
+        
+        matrix_float4x4 model = matrix_identity_float4x4;//matrix4x4_rotation(_frameNum * (M_PI / 180.), 0., 0., 1.);
+        
+        matrix_float4x4 view = matrix_look_at_right_hand(sin(_frameNum* 0.01) * 4 ,0 , cos(_frameNum*0.01) * 4, 0.,0.,0., 0.,1.,0.);//matrix4x4_translation(0., 0., -3.); //按照右手坐标系，要远离z=0的平面
 //        model.columns[1].y = 720./1280.;
         
-        matrix_float4x4 projection =matrix_perspective_left_hand(85.0f * (M_PI / 180.0f), 720./1280., 0.1, 5000.0);
-        model = matrix_multiply(view, model);
-        model = matrix_multiply(projection, model);
+        matrix_float4x4 projection = matrix_perspective_right_hand(60.0f * (M_PI / 180.0f), drawable.texture.width/(CGFloat)drawable.texture.height, 0.1, 5000.0);
+        
         [encoder setDepthStencilState:_dsState];
         [encoder setRenderPipelineState:_state];
         
@@ -218,9 +249,18 @@
         
         float scale = 1.;//0.5 + (1.0 + 0.5 * sin(_frameNum * 0.1));;
         [encoder setVertexBytes:&scale length:sizeof(scale) atIndex:1];
-        [encoder setVertexBytes:&model length:sizeof(model) atIndex:2];
         
-        [encoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:36];
+        for (int i = 0; i < 10; ++i)
+        {
+            model = matrix4x4_translation(cubePositions[i]);
+            model = matrix_multiply(model, matrix4x4_rotation(i * 0.2, 1., 1., 1.));
+            model = matrix_multiply(view, model);
+            model = matrix_multiply(projection, model);
+            [encoder setVertexBytes:&model length:sizeof(model) atIndex:2];
+            [encoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:36];
+        }
+        
+
         [encoder endEncoding];
         [cb presentDrawable:drawable];
     }
