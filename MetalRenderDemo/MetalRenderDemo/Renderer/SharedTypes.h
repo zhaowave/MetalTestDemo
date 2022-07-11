@@ -21,5 +21,11 @@ typedef struct
     vector_float2 texCoord;
 }VertexCube;
 
+typedef struct
+{
+    vector_float3 pos;
+}VertexInfo;
+
+
 
 #endif /* SharedStruct_h */

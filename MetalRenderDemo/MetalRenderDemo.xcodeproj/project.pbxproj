@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		953C7DA5286C9C3900DCDA48 /* RenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 953C7DA4286C9C3900DCDA48 /* RenderView.m */; };
+		953D2BAA287BC47900D571F1 /* AAPLMathUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 953D2BA9287BC47900D571F1 /* AAPLMathUtilities.m */; };
+		953D2BAC287C0D9300D571F1 /* stanfordbunny.obj in Resources */ = {isa = PBXBuildFile; fileRef = 953D2BAB287C0D9300D571F1 /* stanfordbunny.obj */; };
+		953D2BB0287C121200D571F1 /* ObjParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 953D2BAE287C121200D571F1 /* ObjParser.cpp */; };
+		953D2BB3287C212D00D571F1 /* RenderPass.m in Sources */ = {isa = PBXBuildFile; fileRef = 953D2BB2287C212D00D571F1 /* RenderPass.m */; };
+		953D2BCE287C294900D571F1 /* StanfordRabbitPass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 953D2BCD287C294900D571F1 /* StanfordRabbitPass.mm */; };
 		9542864C2869FBB500221E09 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9542864B2869FBB500221E09 /* AppDelegate.m */; };
 		9542864F2869FBB500221E09 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9542864E2869FBB500221E09 /* SceneDelegate.m */; };
 		954286522869FBB500221E09 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 954286512869FBB500221E09 /* ViewController.m */; };
@@ -22,7 +27,9 @@
 		9550D86E28757D93006D19EE /* 00-apple.png in Resources */ = {isa = PBXBuildFile; fileRef = 9550D86D28757D92006D19EE /* 00-apple.png */; };
 		9562C052286B4D05004A6D7C /* triangle.metal in Sources */ = {isa = PBXBuildFile; fileRef = 9562C051286B4D05004A6D7C /* triangle.metal */; };
 		9562C056286B5BDD004A6D7C /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9562C055286B5BDD004A6D7C /* MetalKit.framework */; };
-		95A65AFA286DF6CF002B3F78 /* MTLLayerRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 95A65AF9286DF6CF002B3F78 /* MTLLayerRenderer.m */; };
+		95982358287C61D000445A69 /* Rabbit.metal in Sources */ = {isa = PBXBuildFile; fileRef = 95982357287C61D000445A69 /* Rabbit.metal */; };
+		9598235B287C6FFB00445A69 /* Renderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9598235A287C6FFB00445A69 /* Renderer.m */; };
+		95A65AFA286DF6CF002B3F78 /* MTLLayerRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 95A65AF9286DF6CF002B3F78 /* MTLLayerRenderer.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +52,15 @@
 /* Begin PBXFileReference section */
 		953C7DA3286C9C3900DCDA48 /* RenderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderView.h; sourceTree = "<group>"; };
 		953C7DA4286C9C3900DCDA48 /* RenderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenderView.m; sourceTree = "<group>"; };
+		953D2BA8287BC47900D571F1 /* AAPLMathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLMathUtilities.h; sourceTree = "<group>"; };
+		953D2BA9287BC47900D571F1 /* AAPLMathUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPLMathUtilities.m; sourceTree = "<group>"; };
+		953D2BAB287C0D9300D571F1 /* stanfordbunny.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stanfordbunny.obj; sourceTree = "<group>"; };
+		953D2BAE287C121200D571F1 /* ObjParser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ObjParser.cpp; sourceTree = "<group>"; };
+		953D2BAF287C121200D571F1 /* ObjParser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ObjParser.hpp; sourceTree = "<group>"; };
+		953D2BB1287C212D00D571F1 /* RenderPass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderPass.h; sourceTree = "<group>"; };
+		953D2BB2287C212D00D571F1 /* RenderPass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenderPass.m; sourceTree = "<group>"; };
+		953D2BCC287C294900D571F1 /* StanfordRabbitPass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StanfordRabbitPass.h; sourceTree = "<group>"; };
+		953D2BCD287C294900D571F1 /* StanfordRabbitPass.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StanfordRabbitPass.mm; sourceTree = "<group>"; };
 		954286472869FBB500221E09 /* MetalRenderDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalRenderDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9542864A2869FBB500221E09 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9542864B2869FBB500221E09 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -68,8 +84,11 @@
 		9562C051286B4D05004A6D7C /* triangle.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = triangle.metal; sourceTree = "<group>"; };
 		9562C053286B4D35004A6D7C /* SharedTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedTypes.h; sourceTree = "<group>"; };
 		9562C055286B5BDD004A6D7C /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		95982357287C61D000445A69 /* Rabbit.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Rabbit.metal; sourceTree = "<group>"; };
+		95982359287C6FFB00445A69 /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		9598235A287C6FFB00445A69 /* Renderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Renderer.m; sourceTree = "<group>"; };
 		95A65AF8286DF6CF002B3F78 /* MTLLayerRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTLLayerRenderer.h; sourceTree = "<group>"; };
-		95A65AF9286DF6CF002B3F78 /* MTLLayerRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTLLayerRenderer.m; sourceTree = "<group>"; };
+		95A65AF9286DF6CF002B3F78 /* MTLLayerRenderer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MTLLayerRenderer.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +126,34 @@
 			path = RenderView;
 			sourceTree = "<group>";
 		};
+		953D2BA7287BC47900D571F1 /* Matrix */ = {
+			isa = PBXGroup;
+			children = (
+				953D2BA8287BC47900D571F1 /* AAPLMathUtilities.h */,
+				953D2BA9287BC47900D571F1 /* AAPLMathUtilities.m */,
+			);
+			path = Matrix;
+			sourceTree = "<group>";
+		};
+		953D2BAD287C11E300D571F1 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				953D2BAE287C121200D571F1 /* ObjParser.cpp */,
+				953D2BAF287C121200D571F1 /* ObjParser.hpp */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		953D2BCB287C290D00D571F1 /* Pass */ = {
+			isa = PBXGroup;
+			children = (
+				95982357287C61D000445A69 /* Rabbit.metal */,
+				953D2BCC287C294900D571F1 /* StanfordRabbitPass.h */,
+				953D2BCD287C294900D571F1 /* StanfordRabbitPass.mm */,
+			);
+			path = Pass;
+			sourceTree = "<group>";
+		};
 		9542863E2869FBB500221E09 = {
 			isa = PBXGroup;
 			children = (
@@ -133,9 +180,11 @@
 			children = (
 				9542867F2869FE7500221E09 /* Renderer */,
 				9542864A2869FBB500221E09 /* AppDelegate.h */,
+				953D2BAD287C11E300D571F1 /* Utils */,
 				953C7DA2286C9BC700DCDA48 /* RenderView */,
 				9542864B2869FBB500221E09 /* AppDelegate.m */,
 				9542864D2869FBB500221E09 /* SceneDelegate.h */,
+				953D2BA7287BC47900D571F1 /* Matrix */,
 				9542864E2869FBB500221E09 /* SceneDelegate.m */,
 				954286502869FBB500221E09 /* ViewController.h */,
 				954286512869FBB500221E09 /* ViewController.m */,
@@ -169,12 +218,18 @@
 			isa = PBXGroup;
 			children = (
 				9550D86D28757D92006D19EE /* 00-apple.png */,
+				953D2BAB287C0D9300D571F1 /* stanfordbunny.obj */,
+				953D2BCB287C290D00D571F1 /* Pass */,
 				954286802869FEA100221E09 /* MTLRenderer.h */,
 				954286812869FEA100221E09 /* MTLRenderer.m */,
 				95A65AF8286DF6CF002B3F78 /* MTLLayerRenderer.h */,
-				95A65AF9286DF6CF002B3F78 /* MTLLayerRenderer.m */,
+				95A65AF9286DF6CF002B3F78 /* MTLLayerRenderer.mm */,
+				95982359287C6FFB00445A69 /* Renderer.h */,
+				9598235A287C6FFB00445A69 /* Renderer.m */,
 				9562C051286B4D05004A6D7C /* triangle.metal */,
 				9562C053286B4D35004A6D7C /* SharedTypes.h */,
+				953D2BB1287C212D00D571F1 /* RenderPass.h */,
+				953D2BB2287C212D00D571F1 /* RenderPass.m */,
 			);
 			path = Renderer;
 			sourceTree = "<group>";
@@ -292,6 +347,7 @@
 			files = (
 				9542865A2869FBB600221E09 /* LaunchScreen.storyboard in Resources */,
 				954286572869FBB600221E09 /* Assets.xcassets in Resources */,
+				953D2BAC287C0D9300D571F1 /* stanfordbunny.obj in Resources */,
 				9550D86E28757D93006D19EE /* 00-apple.png in Resources */,
 				954286552869FBB500221E09 /* Main.storyboard in Resources */,
 			);
@@ -319,12 +375,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				954286522869FBB500221E09 /* ViewController.m in Sources */,
+				953D2BAA287BC47900D571F1 /* AAPLMathUtilities.m in Sources */,
+				9598235B287C6FFB00445A69 /* Renderer.m in Sources */,
+				953D2BB0287C121200D571F1 /* ObjParser.cpp in Sources */,
 				9542864C2869FBB500221E09 /* AppDelegate.m in Sources */,
 				954286822869FEA100221E09 /* MTLRenderer.m in Sources */,
 				9562C052286B4D05004A6D7C /* triangle.metal in Sources */,
+				953D2BB3287C212D00D571F1 /* RenderPass.m in Sources */,
+				95982358287C61D000445A69 /* Rabbit.metal in Sources */,
+				953D2BCE287C294900D571F1 /* StanfordRabbitPass.mm in Sources */,
 				953C7DA5286C9C3900DCDA48 /* RenderView.m in Sources */,
 				9542865D2869FBB600221E09 /* main.m in Sources */,
-				95A65AFA286DF6CF002B3F78 /* MTLLayerRenderer.m in Sources */,
+				95A65AFA286DF6CF002B3F78 /* MTLLayerRenderer.mm in Sources */,
 				9542864F2869FBB500221E09 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,14 +8,14 @@
 #import "MTLLayerRenderer.h"
 #import "SharedTypes.h"
 #import "AAPLMathUtilities.h"
-//#import <vector_types.h>
+
+#import "RenderPass.h"
+#include "ObjParser.hpp"
 #import <UIKit/UIKit.h>
 
 @implementation MTLLayerRenderer
 {
-    id<MTLDevice> _device;
-    id<MTLCommandQueue> _commandQ;
-    
+    RenderContex* _context;
     id<MTLRenderPipelineState> _state;
     id<MTLDepthStencilState> _dsState;
     id<MTLBuffer> _vertices;
@@ -32,8 +32,7 @@
 {
     if (self = [super init]) {
         _frameNum = 0;
-        _device = dvc;
-        _commandQ = [_device newCommandQueue];
+        _context = [[RenderContex alloc] initWithMTLDevice:dvc];
         _renderPassdesc = [MTLRenderPassDescriptor new];
         _renderPassdesc.colorAttachments[0].loadAction = MTLLoadActionClear;
         _renderPassdesc.colorAttachments[0].storeAction = MTLStoreActionStore;
@@ -43,7 +42,7 @@
         
         //shader
         {
-            id<MTLLibrary> lib = [_device newDefaultLibrary];
+            id<MTLLibrary> lib = [_context.device newDefaultLibrary];
             
             id<MTLFunction> vs = [lib newFunctionWithName:@"vmain1"];
             id<MTLFunction> fs = [lib newFunctionWithName:@"fmain1"];
@@ -97,7 +96,7 @@
             
             
             
-            _vertices = [_device newBufferWithBytes:data length:sizeof(data) options:MTLResourceStorageModeShared];
+            _vertices = [_context.device newBufferWithBytes:data length:sizeof(data) options:MTLResourceStorageModeShared];
             _vertices.label = @"vertices";
             
             //pipeline state
@@ -108,12 +107,12 @@
             pipelineDesc.depthAttachmentPixelFormat = MTLPixelFormatDepth32Float;
             
             NSError *error;
-            _state = [_device newRenderPipelineStateWithDescriptor:pipelineDesc error:&error];
+            _state = [_context.device newRenderPipelineStateWithDescriptor:pipelineDesc error:&error];
             
             MTLDepthStencilDescriptor* dsDesc = [MTLDepthStencilDescriptor new];
             dsDesc.depthCompareFunction = MTLCompareFunctionLess;
             dsDesc.depthWriteEnabled = YES;
-            _dsState = [_device newDepthStencilStateWithDescriptor:dsDesc];
+            _dsState = [_context.device newDepthStencilStateWithDescriptor:dsDesc];
             
         }
         
@@ -128,7 +127,7 @@
     texDescriptor.usage = MTLTextureUsageRenderTarget;
     texDescriptor.storageMode = MTLStorageModePrivate;
     
-    id<MTLTexture> texture = [_device newTextureWithDescriptor: texDescriptor];
+    id<MTLTexture> texture = [_context.device newTextureWithDescriptor: texDescriptor];
     
     return texture;
 }
@@ -143,8 +142,8 @@
         desc.height = image.size.height;
         desc.pixelFormat = MTLPixelFormatRGBA8Unorm_sRGB;
         
-        _texture = [_device newTextureWithDescriptor:desc];
-        MTLRegion region = {{0,0,0}, {image.size.width,image.size.height,1}};
+        _texture = [_context.device newTextureWithDescriptor:desc];
+        MTLRegion region = {{0,0,0}, {(NSUInteger)image.size.width,(NSUInteger)image.size.height,1}};
         
         Byte* data = [self loadImage:image];
         if (data)
@@ -193,7 +192,7 @@
 - (void)renderToMetalLayer:(nonnull CAMetalLayer*)layer
 {
     _frameNum++;
-    id<MTLCommandBuffer> cb = [_commandQ commandBuffer];
+    id<MTLCommandBuffer> cb = [_context.queue commandBuffer];
     
     id<CAMetalDrawable> drawable = [layer nextDrawable];
     _renderPassdesc.colorAttachments[0].texture = drawable.texture;

@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@import MetalKit;
+#import <Metal/Metal.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol RenderViewDelegate <NSObject>

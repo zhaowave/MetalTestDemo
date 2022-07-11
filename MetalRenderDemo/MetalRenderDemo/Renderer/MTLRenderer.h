@@ -6,8 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
-@import Metal;
-@import MetalKit;
+#import <Metal/Metal.h>
+#import <MetalKit/MTKView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
