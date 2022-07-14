@@ -9,23 +9,17 @@
 #include "../SharedTypes.h"
 using namespace metal;
 
-struct RastData {
-    vector_float4 pos [[position]];
-};
 
-vertex RastData vertexShader(uint vId [[vertex_id]], constant VertexInfo* vertices [[buffer(0)]])
+
+vertex float4 rabbit_vs(uint vId [[vertex_id]], constant float4* vertices [[buffer(0)]], constant matrix_float4x4& mvp [[buffer(1)]])
 {
-    RastData out ;
-    out.pos = vector_float4(0.,0.,0.,1.);;
-    out.pos.xyz = vertices[vId].pos;
-    return out;
+    float4 pos = float4(vertices[vId]);
+    return mvp * pos;
 }
 
-fragment vector_float4 fragmentShader()
+fragment float4 rabbit_fs()
 {
-    vector_float4 out(1.,1.,1.,1.);
-    
-    return out;
+    return float4(0.5,0.5,0.5,1.);
 }
 
 

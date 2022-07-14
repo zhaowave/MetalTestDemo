@@ -64,7 +64,7 @@ const BOOL usingMtlLayer = YES;
     id<MTLDevice> device = MTLCreateSystemDefaultDevice();
     RenderView* view = (RenderView*)self.view;
     view.metalLayer.device = device;
-    view.metalLayer.pixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
+    view.metalLayer.pixelFormat = MTLPixelFormatBGRA8Unorm;
     view.delegate = self;
     
     _layerRenderer = [[MTLLayerRenderer alloc] initWithMTLDevice:device andPixelFormat:view.metalLayer.pixelFormat];

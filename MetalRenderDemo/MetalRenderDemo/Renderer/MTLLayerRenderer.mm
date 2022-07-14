@@ -10,8 +10,14 @@
 #import "AAPLMathUtilities.h"
 
 #import "RenderPass.h"
+#import "Renderer.h"
+#import "CubesPass.h"
+#import "CubePass.h"
+#import "QuadPass.h"
+#import "StanfordRabbitPass.h"
 #include "ObjParser.hpp"
 #import <UIKit/UIKit.h>
+
 
 @implementation MTLLayerRenderer
 {
@@ -24,112 +30,32 @@
     MTLRenderPassDescriptor* _renderPassdesc;
     
     vector_int2 _viewport;
-    NSInteger _frameNum;
+    
+    CubesPass* _cubesPass;
+    
+    QuadPass* _quadPass;
+    StanfordRabbitPass* _rabbitPass;
+    CubePass* _cubePass;
     
 }
 
 - (instancetype)initWithMTLDevice:(nonnull id<MTLDevice>)dvc andPixelFormat:(MTLPixelFormat)format
 {
     if (self = [super init]) {
-        _frameNum = 0;
         _context = [[RenderContex alloc] initWithMTLDevice:dvc];
-        _renderPassdesc = [MTLRenderPassDescriptor new];
-        _renderPassdesc.colorAttachments[0].loadAction = MTLLoadActionClear;
-        _renderPassdesc.colorAttachments[0].storeAction = MTLStoreActionStore;
-        _renderPassdesc.colorAttachments[0].clearColor = MTLClearColorMake(1., 1., 0., 1.);
-        [self loadTexture];
-        _renderPassdesc.depthAttachment.texture = [self createDepthStencilTextureWithWidth:1170 height:2532];
+        CGSize size = [UIScreen mainScreen].bounds.size;
+        size.width = size.width * [UIScreen mainScreen].nativeScale;
+        size.height = size.height * [UIScreen mainScreen].nativeScale;
+        _context.size =  size;
+        [[Renderer shared] setContext:_context];
         
-        //shader
-        {
-            id<MTLLibrary> lib = [_context.device newDefaultLibrary];
-            
-            id<MTLFunction> vs = [lib newFunctionWithName:@"vmain1"];
-            id<MTLFunction> fs = [lib newFunctionWithName:@"fmain1"];
-            
-            
-            static const VertexCube data[] = {
-                {{-0.5f, -0.5f, -0.5f},  {0.0f, 0.0f}},
-                {{ 0.5f, -0.5f, -0.5f},  {1.0f, 0.0f}},
-                {{ 0.5f,  0.5f, -0.5f},  {1.0f, 1.0f}},
-                {{0.5f,  0.5f, -0.5f},  {1.0f, 1.0f}},
-                {{-0.5f,  0.5f, -0.5f},  {0.0f, 1.0f}},
-                {{-0.5f, -0.5f, -0.5f},  {0.0f, 0.0f}},
-
-                {{-0.5f, -0.5f,  0.5f},  {0.0f, 0.0f}},
-                {{0.5f, -0.5f,  0.5f},  {1.0f, 0.0f}},
-                {{0.5f,  0.5f,  0.5f},  {1.0f, 1.0f}},
-                {{0.5f,  0.5f,  0.5f},  {1.0f, 1.0f}},
-                {{-0.5f,  0.5f,  0.5f},  {0.0f, 1.0f}},
-                {{-0.5f, -0.5f,  0.5f},  {0.0f, 0.0f}},
-
-                {{-0.5f,  0.5f,  0.5f},  {1.0f, 0.0f}},
-                {{ -0.5f,  0.5f, -0.5f},  {1.0f, 1.0f}},
-                {{ -0.5f, -0.5f, -0.5f},  {0.0f, 1.0f}},
-                {{ -0.5f, -0.5f, -0.5f}, { 0.0f, 1.0f}},
-                {{ -0.5f, -0.5f,  0.5f},  {0.0f, 0.0f}},
-                {{ -0.5f,  0.5f,  0.5f}, { 1.0f, 0.0f}},
-
-                {{ 0.5f,  0.5f,  0.5f},  {1.0f, 0.0f}},
-                {{0.5f,  0.5f, -0.5f},  {1.0f, 1.0f}},
-                {{ 0.5f, -0.5f, -0.5f},  {0.0f, 1.0f}},
-                {{ 0.5f, -0.5f, -0.5f},  {0.0f, 1.0f}},
-                {{0.5f, -0.5f,  0.5f},  {0.0f, 0.0f}},
-                {{ 0.5f,  0.5f,  0.5f},  {1.0f, 0.0f}},
-
-                {{-0.5f, -0.5f, -0.5f},  {0.0f, 1.0f}},
-                {{ 0.5f, -0.5f, -0.5f},  {1.0f, 1.0f}},
-                {{ 0.5f, -0.5f,  0.5f},  {1.0f, 0.0f}},
-                {{ 0.5f, -0.5f,  0.5f},  {1.0f, 0.0f}},
-                {{ -0.5f, -0.5f,  0.5f},  {0.0f, 0.0f}},
-                {{ -0.5f, -0.5f, -0.5f},  {0.0f, 1.0f}},
-
-                {{-0.5f,  0.5f, -0.5f},  {0.0f, 1.0f}},
-                {{0.5f,  0.5f, -0.5f},  {1.0f, 1.0f}},
-                {{ 0.5f,  0.5f,  0.5f},  {1.0f, 0.0f}},
-                {{ 0.5f,  0.5f,  0.5f},  {1.0f, 0.0f}},
-                {{-0.5f,  0.5f,  0.5f},  {0.0f, 0.0f}},
-                {{-0.5f,  0.5f, -0.5f},  {0.0f, 1.0f}}
-            };
-            
-            
-            
-            
-            
-            _vertices = [_context.device newBufferWithBytes:data length:sizeof(data) options:MTLResourceStorageModeShared];
-            _vertices.label = @"vertices";
-            
-            //pipeline state
-            MTLRenderPipelineDescriptor *pipelineDesc = [MTLRenderPipelineDescriptor new];
-            pipelineDesc.vertexFunction = vs;
-            pipelineDesc.fragmentFunction = fs;
-            pipelineDesc.colorAttachments[0].pixelFormat = format;
-            pipelineDesc.depthAttachmentPixelFormat = MTLPixelFormatDepth32Float;
-            
-            NSError *error;
-            _state = [_context.device newRenderPipelineStateWithDescriptor:pipelineDesc error:&error];
-            
-            MTLDepthStencilDescriptor* dsDesc = [MTLDepthStencilDescriptor new];
-            dsDesc.depthCompareFunction = MTLCompareFunctionLess;
-            dsDesc.depthWriteEnabled = YES;
-            _dsState = [_context.device newDepthStencilStateWithDescriptor:dsDesc];
-            
-        }
-        
+        _cubesPass = [[CubesPass alloc] initWithContext:_context];
+//        _cubePass = [[CubePass alloc] initWithContext:_context];
+        _quadPass = [[QuadPass alloc] initWithContext:_context];
+        _rabbitPass = [[StanfordRabbitPass alloc] initWithContext:_context];
+    
     }
     return self;
-}
-
-- (id<MTLTexture>)createDepthStencilTextureWithWidth:  (size_t)width
-                                          height: (size_t)height {
-    
-    MTLTextureDescriptor *texDescriptor = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat: MTLPixelFormatDepth32Float width: width height: height mipmapped: false];
-    texDescriptor.usage = MTLTextureUsageRenderTarget;
-    texDescriptor.storageMode = MTLStorageModePrivate;
-    
-    id<MTLTexture> texture = [_context.device newTextureWithDescriptor: texDescriptor];
-    
-    return texture;
 }
 
 - (void)loadTexture
@@ -140,7 +66,7 @@
         MTLTextureDescriptor* desc = [[MTLTextureDescriptor alloc] init];
         desc.width = image.size.width;
         desc.height = image.size.height;
-        desc.pixelFormat = MTLPixelFormatRGBA8Unorm_sRGB;
+        desc.pixelFormat = MTLPixelFormatRGBA8Unorm;
         
         _texture = [_context.device newTextureWithDescriptor:desc];
         MTLRegion region = {{0,0,0}, {(NSUInteger)image.size.width,(NSUInteger)image.size.height,1}};
@@ -191,86 +117,31 @@
 
 - (void)renderToMetalLayer:(nonnull CAMetalLayer*)layer
 {
-    _frameNum++;
-    id<MTLCommandBuffer> cb = [_context.queue commandBuffer];
-    
     id<CAMetalDrawable> drawable = [layer nextDrawable];
-    _renderPassdesc.colorAttachments[0].texture = drawable.texture;
-//    drawable.texture.pixelFormat;
-    id<MTLRenderCommandEncoder> encoder = [cb renderCommandEncoderWithDescriptor:_renderPassdesc];
-    if (encoder)
-    {
-        
-        /*  右手坐标系
-                                    y
-                                    |
-                                    |
-                                    |_______x   
-                                    /
-                                   /
-                                  /
-                                 z
-         左手坐标系
-                                     y   z
-                                     |  /
-                                     | /
-                                     |/_______x
-         
-         
-         */
-        
-        static const vector_float3 cubePositions[] = {
-            { 0.0f,  0.0f,  0.0f},
-            { 2.0f,  5.0f, -15.0f},
-            {-1.5f, -2.2f, -2.5f},
-            {-3.8f, -2.0f, -12.3f},
-            { 2.4f, -0.4f, -3.5f},
-            {-1.7f,  3.0f, -7.5f},
-            { 1.3f, -2.0f, -2.5f},
-            { 1.5f,  2.0f, -2.5f},
-            { -0.5f,  0.2f, -1.5f},
-            {-1.f,   1.0f, -1.5f}
-            };
-        
-        matrix_float4x4 model = matrix_identity_float4x4;//matrix4x4_rotation(_frameNum * (M_PI / 180.), 0., 0., 1.);
-        
-        matrix_float4x4 view = matrix_look_at_right_hand(sin(_frameNum* 0.01) * 4 ,0 , cos(_frameNum*0.01) * 4, 0.,0.,0., 0.,1.,0.);//matrix4x4_translation(0., 0., -3.); //按照右手坐标系，要远离z=0的平面
-//        model.columns[1].y = 720./1280.;
-        
-        matrix_float4x4 projection = matrix_perspective_right_hand(60.0f * (M_PI / 180.0f), drawable.texture.width/(CGFloat)drawable.texture.height, 0.1, 5000.0);
-        
-        [encoder setDepthStencilState:_dsState];
-        [encoder setRenderPipelineState:_state];
-        
-        [encoder setVertexBuffer:_vertices offset:0 atIndex:0];
-        [encoder setFragmentTexture:_texture atIndex:0];
-//        [encoder setdepth];
-        
-        float scale = 1.;//0.5 + (1.0 + 0.5 * sin(_frameNum * 0.1));;
-        [encoder setVertexBytes:&scale length:sizeof(scale) atIndex:1];
-        
-        for (int i = 0; i < 10; ++i)
-        {
-            model = matrix4x4_translation(cubePositions[i]);
-            model = matrix_multiply(model, matrix4x4_rotation(i * 0.2, 1., 1., 1.));
-            model = matrix_multiply(view, model);
-            model = matrix_multiply(projection, model);
-            [encoder setVertexBytes:&model length:sizeof(model) atIndex:2];
-            [encoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:36];
-        }
-        
-
-        [encoder endEncoding];
-        [cb presentDrawable:drawable];
-    }
     
+    [_context updateCommandBuffer];
+    
+    [_rabbitPass render];
+    [_cubesPass renderToTexture:_rabbitPass.targetTexture];
+//    [_cubePass render];
+    
+    
+    
+    [_quadPass setTexture:_cubesPass.targetTexture];
+    [_quadPass renderToTexture:drawable.texture];
+    
+    id<MTLCommandBuffer> cb = _context.commandBuffer;
+
+    [cb presentDrawable:drawable];
     [cb commit];
 }
 
 - (void)resize:(CGSize)size
 {
+    _context.size = size;
     _viewport.x = size.width;
     _viewport.y = size.height;
+    [_cubesPass resize:size];
 }
 
 

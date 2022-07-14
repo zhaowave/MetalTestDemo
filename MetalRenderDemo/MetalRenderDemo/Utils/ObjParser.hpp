@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <string>
+#include <vector>
 
 
 class ObjParser
@@ -21,16 +22,14 @@ public:
         ObjData() = default;
         ObjData(size_t vLen, size_t iLen)
         {
-            vertices = new float[vLen * 3];
-            indices = new int[iLen * 3];
+            vertices.resize(vLen);
+            indices.resize(iLen);
         }
         ~ObjData()
         {
-            free(vertices);
-            free(indices);
         }
-        float* vertices{nullptr};
-        int* indices{nullptr};
+        std::vector<float> vertices;
+        std::vector<int> indices;
     };
     
     static ObjData ParseObj(const std::string& file);

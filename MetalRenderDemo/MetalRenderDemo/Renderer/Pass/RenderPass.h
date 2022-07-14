@@ -8,16 +8,10 @@
 #import <Foundation/Foundation.h>
 #import <Metal/Metal.h>
 #import <UIKit/UIKit.h>
+#import "Renderer.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RenderContex : NSObject
 
-- (instancetype)initWithMTLDevice:(nonnull id<MTLDevice>)device;
-
-- (id<MTLDevice>) device;
-- (id<MTLCommandQueue>) queue;
-
-@end
 
 @protocol RenderPass <NSObject>
 - (instancetype)initWithContext:(RenderContex*)context;

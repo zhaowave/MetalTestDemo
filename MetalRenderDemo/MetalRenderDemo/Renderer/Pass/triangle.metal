@@ -6,7 +6,7 @@
 //
 
 #include <metal_stdlib>
-#include "SharedTypes.h"
+#include "../SharedTypes.h"
 using namespace metal;
 struct RasterData
 {
@@ -37,18 +37,14 @@ vertex RasterData vmain1(uint vId [[vertex_id]],
                          constant matrix_float4x4* mat [[buffer(2)]])
 {
     RasterData out;
-    out.color = {1.};
-    float3 pos = vertices[vId].pos;
-    out.coord = vertices[vId].texCoord;
-    pos *= *scale;
-    out.pos.xyz =  pos;
-    out.pos.w = 1.;
+    out.coord = vertices[vId].texCoord.xy;
 
-    
-    
-//    out.pos.y = out.pos.y * 72./ 128.;
+    out.pos = float4(vertices[vId].pos, 1.);
+
     out.pos = (*mat) * out.pos;
     
+    out.color = float4(1.,1.,1.,1.);
+//    out.color.xyz = vertices[vId].pos;
     return out;
 }
 
@@ -56,12 +52,7 @@ fragment float4 fmain1(RasterData in [[stage_in]], texture2d<float> texture [[te
 {
     constexpr sampler s(mag_filter::linear, min_filter::linear);
     const float4 color = texture.sample(s, in.coord);
-    float4 ret = {1.,1.,1.,1.};
-    ret.x = color.r;
-    ret.y = color.g;
-    ret.z = color.b;
-    ret.w = color.a;
-    return ret;
+    return color;
 }
 
 

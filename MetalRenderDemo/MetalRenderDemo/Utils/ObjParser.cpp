@@ -35,15 +35,16 @@ ObjParser::ObjData ObjParser::ParseObj(const std::string& fileName)
     int iLen = 0;
     fscanf(file, "# vertex count = %d\n",&vLen);
     fscanf(file, "# face count = %d\n",&iLen);
-    ObjData obj = ObjData(vLen,iLen);
+    ObjData obj = ObjData(vLen*4,iLen*3);
     for (int i = 0; i < vLen; ++i)
     {
-        fscanf(file, "v %f %f %f\n",&obj.vertices[i*3], &obj.vertices[i*3 + 1], &obj.vertices[i*3 + 2]);
+        fscanf(file, "v %f %f %f\n",&obj.vertices[i*4], &obj.vertices[i*4 + 1], &obj.vertices[i*4 + 2]);
+        obj.vertices[i*4 + 3] = 1.;
     }
     for (int i = 0; i < iLen; ++i)
     {
         fscanf(file, "f %d %d %d\n",&obj.indices[i*3], &obj.indices[i*3 + 1], &obj.indices[i*3 + 2]);
-        printf("%d %d %d\n",obj.indices[i*3], obj.indices[i*3 + 1],obj.indices[i*3 + 2]);
+//        printf("%d %d %d\n",obj.indices[i*3], obj.indices[i*3 + 1],obj.indices[i*3 + 2]);
     }
     fclose(file);
     return obj;

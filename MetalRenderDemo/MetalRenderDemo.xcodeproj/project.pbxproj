@@ -13,6 +13,11 @@
 		953D2BB0287C121200D571F1 /* ObjParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 953D2BAE287C121200D571F1 /* ObjParser.cpp */; };
 		953D2BB3287C212D00D571F1 /* RenderPass.m in Sources */ = {isa = PBXBuildFile; fileRef = 953D2BB2287C212D00D571F1 /* RenderPass.m */; };
 		953D2BCE287C294900D571F1 /* StanfordRabbitPass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 953D2BCD287C294900D571F1 /* StanfordRabbitPass.mm */; };
+		953D2F71287EB35F00D571F1 /* CubesPass.m in Sources */ = {isa = PBXBuildFile; fileRef = 953D2F70287EB35F00D571F1 /* CubesPass.m */; };
+		953D2F74287EB81F00D571F1 /* QuadPass.m in Sources */ = {isa = PBXBuildFile; fileRef = 953D2F73287EB81F00D571F1 /* QuadPass.m */; };
+		953D2F76287EC4FB00D571F1 /* Quad.metal in Sources */ = {isa = PBXBuildFile; fileRef = 953D2F75287EC4FB00D571F1 /* Quad.metal */; };
+		953D2F7928800C9F00D571F1 /* CubePass.m in Sources */ = {isa = PBXBuildFile; fileRef = 953D2F7828800C9F00D571F1 /* CubePass.m */; };
+		953D2F7B28800D7700D571F1 /* Cube.metal in Sources */ = {isa = PBXBuildFile; fileRef = 953D2F7A28800D7700D571F1 /* Cube.metal */; };
 		9542864C2869FBB500221E09 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9542864B2869FBB500221E09 /* AppDelegate.m */; };
 		9542864F2869FBB500221E09 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9542864E2869FBB500221E09 /* SceneDelegate.m */; };
 		954286522869FBB500221E09 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 954286512869FBB500221E09 /* ViewController.m */; };
@@ -61,6 +66,14 @@
 		953D2BB2287C212D00D571F1 /* RenderPass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenderPass.m; sourceTree = "<group>"; };
 		953D2BCC287C294900D571F1 /* StanfordRabbitPass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StanfordRabbitPass.h; sourceTree = "<group>"; };
 		953D2BCD287C294900D571F1 /* StanfordRabbitPass.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StanfordRabbitPass.mm; sourceTree = "<group>"; };
+		953D2F6F287EB35F00D571F1 /* CubesPass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CubesPass.h; sourceTree = "<group>"; };
+		953D2F70287EB35F00D571F1 /* CubesPass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CubesPass.m; sourceTree = "<group>"; };
+		953D2F72287EB81F00D571F1 /* QuadPass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuadPass.h; sourceTree = "<group>"; };
+		953D2F73287EB81F00D571F1 /* QuadPass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuadPass.m; sourceTree = "<group>"; };
+		953D2F75287EC4FB00D571F1 /* Quad.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Quad.metal; sourceTree = "<group>"; };
+		953D2F7728800C9F00D571F1 /* CubePass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CubePass.h; sourceTree = "<group>"; };
+		953D2F7828800C9F00D571F1 /* CubePass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CubePass.m; sourceTree = "<group>"; };
+		953D2F7A28800D7700D571F1 /* Cube.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Cube.metal; sourceTree = "<group>"; };
 		954286472869FBB500221E09 /* MetalRenderDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalRenderDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9542864A2869FBB500221E09 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9542864B2869FBB500221E09 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -147,9 +160,20 @@
 		953D2BCB287C290D00D571F1 /* Pass */ = {
 			isa = PBXGroup;
 			children = (
+				953D2BB1287C212D00D571F1 /* RenderPass.h */,
+				953D2BB2287C212D00D571F1 /* RenderPass.m */,
 				95982357287C61D000445A69 /* Rabbit.metal */,
 				953D2BCC287C294900D571F1 /* StanfordRabbitPass.h */,
 				953D2BCD287C294900D571F1 /* StanfordRabbitPass.mm */,
+				9562C051286B4D05004A6D7C /* triangle.metal */,
+				953D2F72287EB81F00D571F1 /* QuadPass.h */,
+				953D2F73287EB81F00D571F1 /* QuadPass.m */,
+				953D2F75287EC4FB00D571F1 /* Quad.metal */,
+				953D2F6F287EB35F00D571F1 /* CubesPass.h */,
+				953D2F70287EB35F00D571F1 /* CubesPass.m */,
+				953D2F7728800C9F00D571F1 /* CubePass.h */,
+				953D2F7828800C9F00D571F1 /* CubePass.m */,
+				953D2F7A28800D7700D571F1 /* Cube.metal */,
 			);
 			path = Pass;
 			sourceTree = "<group>";
@@ -226,10 +250,7 @@
 				95A65AF9286DF6CF002B3F78 /* MTLLayerRenderer.mm */,
 				95982359287C6FFB00445A69 /* Renderer.h */,
 				9598235A287C6FFB00445A69 /* Renderer.m */,
-				9562C051286B4D05004A6D7C /* triangle.metal */,
 				9562C053286B4D35004A6D7C /* SharedTypes.h */,
-				953D2BB1287C212D00D571F1 /* RenderPass.h */,
-				953D2BB2287C212D00D571F1 /* RenderPass.m */,
 			);
 			path = Renderer;
 			sourceTree = "<group>";
@@ -379,7 +400,10 @@
 				9598235B287C6FFB00445A69 /* Renderer.m in Sources */,
 				953D2BB0287C121200D571F1 /* ObjParser.cpp in Sources */,
 				9542864C2869FBB500221E09 /* AppDelegate.m in Sources */,
+				953D2F76287EC4FB00D571F1 /* Quad.metal in Sources */,
 				954286822869FEA100221E09 /* MTLRenderer.m in Sources */,
+				953D2F71287EB35F00D571F1 /* CubesPass.m in Sources */,
+				953D2F74287EB81F00D571F1 /* QuadPass.m in Sources */,
 				9562C052286B4D05004A6D7C /* triangle.metal in Sources */,
 				953D2BB3287C212D00D571F1 /* RenderPass.m in Sources */,
 				95982358287C61D000445A69 /* Rabbit.metal in Sources */,
@@ -387,7 +411,9 @@
 				953C7DA5286C9C3900DCDA48 /* RenderView.m in Sources */,
 				9542865D2869FBB600221E09 /* main.m in Sources */,
 				95A65AFA286DF6CF002B3F78 /* MTLLayerRenderer.mm in Sources */,
+				953D2F7B28800D7700D571F1 /* Cube.metal in Sources */,
 				9542864F2869FBB500221E09 /* SceneDelegate.m in Sources */,
+				953D2F7928800C9F00D571F1 /* CubePass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
